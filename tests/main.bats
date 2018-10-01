@@ -27,3 +27,9 @@ FIXTURES_PATH="tests/fixtures"
 	[ "$status" -eq 0 ]
 	[[ "$output" = "`cat $FIXTURES_PATH/hash/out.yml`" ]]
 }
+
+@test "check message works" {
+	run $DOCKER_CMD --message "This is my message" $FIXTURES_PATH/message/in.yml
+	[ "$status" -eq 0 ]
+	[[ "$output" =~ "This is my message" ]]
+}

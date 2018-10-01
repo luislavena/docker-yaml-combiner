@@ -43,10 +43,12 @@ module App
     # Options
     attr_reader :in_files # : Array(String)
     attr_reader :out_file # : String | Nil
+    attr_reader :message  # : String | Nil
 
     def initialize(argv)
       @in_files = []
       @out_file = nil
+      @message = nil
 
       argv = argv.dup
       process_args(argv)
@@ -69,9 +71,17 @@ module App
     end
 
     private def persist(data)
+      if msg = @message
+        msg = "# #{msg}"
+      end
+
       if file = @out_file
-        File.binwrite(file, YAML.dump(data))
+        File.open(file, "wb") do |f|
+          f.puts(msg) if msg
+          f.puts YAML.dump(data)
+        end
       else
+        puts msg if msg
         puts YAML.dump(data)
       end
     end
@@ -84,6 +94,10 @@ module App
 
       parser.on("-o FILE", "--output FILE", "Write combined output to file") do |value|
         @out_file = String(value)
+      end
+
+      parser.on("-m LINE", "--message LINE", "Comment message to be added to the output") do |value|
+        @message = String(value)
       end
 
       parser.on("--help", "-h", "Display this page") do
