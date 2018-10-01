@@ -82,7 +82,7 @@ module App
       parser.program_name = "yaml-combiner"
       parser.banner = "Usage: #{parser.program_name} [options] file1.yml file2.yml"
 
-      parser.on("-o FILE", "Write combined output to file") do |value|
+      parser.on("-o FILE", "--output FILE", "Write combined output to file") do |value|
         @out_file = String(value)
       end
 
