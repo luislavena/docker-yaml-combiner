@@ -1,0 +1,6 @@
+---
+x-foo: &foo
+  key: value
+
+bar:
+  <<: *foo

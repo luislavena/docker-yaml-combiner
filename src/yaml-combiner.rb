@@ -62,7 +62,7 @@ module App
       combiner = Combiner.new
 
       @in_files.each do |in_file|
-        other_yaml = File.open(in_file, "rb") { |f| YAML.safe_load(f) }
+        other_yaml = load_yaml(in_file)
         combiner.combine(other_yaml)
       end
 
@@ -121,6 +121,12 @@ module App
       if @in_files.empty?
         puts parser
         exit 1
+      end
+    end
+
+    private def load_yaml(path)
+      File.open(path, "rb") do |f|
+        YAML.safe_load(f, [], [], true)
       end
     end
   end

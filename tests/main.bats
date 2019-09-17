@@ -28,6 +28,12 @@ FIXTURES_PATH="tests/fixtures"
 	[[ "$output" = "`cat $FIXTURES_PATH/hash/out.yml`" ]]
 }
 
+@test "check alias expansion works" {
+	run $DOCKER_CMD $FIXTURES_PATH/alias/in.yml
+	[ "$status" -eq 0 ]
+	[[ "$output" = "`cat $FIXTURES_PATH/alias/out.yml`" ]]
+}
+
 @test "check message works" {
 	run $DOCKER_CMD --message "This is my message" $FIXTURES_PATH/message/in.yml
 	[ "$status" -eq 0 ]
