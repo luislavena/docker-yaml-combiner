@@ -6,9 +6,11 @@ WORKDIR /data
 # install ruby and dependencies
 RUN set -eux; \
     apk add --no-cache \
-      ruby
+      ruby \
+      tini \
+    ;
 
 COPY bin/yaml-combiner /usr/bin/yaml-combiner
 
-ENTRYPOINT ["/usr/bin/yaml-combiner"]
+ENTRYPOINT ["/sbin/tini", "--", "/usr/bin/yaml-combiner"]
 CMD ["--help"]
