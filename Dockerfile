@@ -1,12 +1,12 @@
-FROM alpine:3.8
+FROM alpine:3.13
 
 # default data directory
 WORKDIR /data
 
-# install ruby dependencies
-RUN set -ex \
-        && apk add --no-cache \
-                ruby
+# install ruby and dependencies
+RUN set -eux; \
+    apk add --no-cache \
+      ruby
 
 COPY src/yaml-combiner.rb /usr/bin/yaml-combiner
 RUN set -ex \
