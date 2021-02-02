@@ -8,8 +8,7 @@ RUN set -eux; \
     apk add --no-cache \
       ruby
 
-COPY src/yaml-combiner.rb /usr/bin/yaml-combiner
-RUN set -ex \
-        && chmod +x /usr/bin/yaml-combiner
+COPY bin/yaml-combiner /usr/bin/yaml-combiner
 
 ENTRYPOINT ["/usr/bin/yaml-combiner"]
+CMD ["--help"]
